@@ -19,9 +19,9 @@ const PORT = process.env.PORT || 4000;
 app.use('/todo', todoRouter);
 
 
-app.use('/', async (req, res) => {
-    res.json("Server is running")
-});
+// app.use('/', async (req, res) => {
+//     res.json("Server is running")
+// });
 
 
 let server = app.listen(PORT, () => {

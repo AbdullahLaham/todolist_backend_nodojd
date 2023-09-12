@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const {title, isDone, date} = req.body;
-
+    console.log('hello')
     try {
         const todoList = await todoModal.create({title, isDone, date});
         res.json(todoList);
@@ -24,10 +24,17 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const {id} = req.params;
-
     try {
-        const todoList = await todoModal.findByIdAndUpdate(id, {isDone}, {new: true});
-        res.json(todoList);
+        const todoList = await todoModal.findById(id);
+        let updatedodoList;
+        if (todoList.isDone) {
+            updatedodoList = await todoModal.findByIdAndUpdate(id, {isDone: false}, {new: true});
+        } else {
+            updatedodoList = await todoModal.findByIdAndUpdate(id, {isDone: true}, {new: true});
+        }
+        
+        res.json(updatedodoList);
+
     } catch(error) {
         console.log(error);
     }
